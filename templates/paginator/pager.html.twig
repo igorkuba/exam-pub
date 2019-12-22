@@ -1,0 +1,11 @@
+{% if links is not empty %}
+    <div class="text-center">
+    <ul class="pagination">
+        {% for link in links %}
+            <li class="{{link.class}}">
+                <a class="btn btn-link" href="{{ link.path }}">{{ link.text }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    </div>
+{% endif %}

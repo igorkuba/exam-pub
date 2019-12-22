@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vyberte uživatele{% endblock %}
+{% block h1 %}Vyberte uživatele{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        {% for customer in customers %}
+            <div class="col-md-4">
+                <div class="customer text-center"  data-customer="{{ customer.id }}">
+                    <p><i class="far fa-smile fa-4x"></i></p>
+                    <h2>{{ customer.name }}</h2>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="text-center d-none continue">
+        <a href="/" class="btn btn-primary" role="button">Pokračovat k výběru nápoje</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function(){
+            $('.customer').click(function(){
+                $('.continue').removeClass('d-none');
+                $('.continue a').attr('href','/drink-menu?customer='+$(this).attr('data-customer'));
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Děkujeme za objednávku{% endblock %}
+{% block h1%}Děkujeme za objednávku{% endblock %}
+
+{% block body %}
+<div class="container">
+    {% if order %}
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Nápoj</th>
+                <th>Cena</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in order.orderItems %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.price }} Kč</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfood>
+            <tr>
+                <td><strong>Součet:</strong></td>
+                <td><strong>{{ order.sum }} Kč</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Zůstatek:</strong></td>
+                <td><strong>{{ order.customer.wallet }} Kč</strong></td>
+            </tr>
+        </tfood>
+    </table>
+    {% endif %}        
+    <a href="/" class="btn btn-primary">Dokončit</a>       
+</div>
+{% endblock %}

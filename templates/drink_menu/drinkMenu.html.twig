@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nabídka nápojů{% endblock %}
+{% block h1%}Nabídka nápojů{% endblock %}
+
+{% block body %}
+<div class="container">
+    {{ form_start(form) }}
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Nápoj</th>
+                    <th>Cena</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for key,product in products %}
+                {% set item='product_'~product.id %}
+                <tr>
+                    <td>{{ form_widget(form[item]) }} {{ form_label(form[item]) }}</td>
+                    <td>{{ product.price }} Kč</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Objednat</button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

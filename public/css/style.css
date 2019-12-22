@@ -1,0 +1,7 @@
+.customer
+{
+    border: 1px solid #000;
+    padding: 1em;
+    margin: 1em 0;
+    cursor: pointer;
+}
