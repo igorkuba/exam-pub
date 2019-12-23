@@ -66,17 +66,15 @@ class DrinkMenuController extends AbstractController
                     'products'=>$products,
                 ]);
             }
-//            $diff=$order->getSum()-$customer->getWallet();
             if($order->getCustomer()->getWallet()<0)
             {
+                $diff=(-1)*$customer->getWallet();
                 $this->addFlash ('error', 'Chybí Vám '.$diff.' Kč');
                 return $this->render('drink_menu/drinkMenu.html.twig', [
                     'form' => $form->createView(),
                     'products'=>$products,
                 ]);
             }
-//            $customer->decreaseWallet($diff);
-//            $customerRep->save($customer);
             $orderRep->save($order);
             $this->addFlash('success', 'Objednávka přijata');
             return $this->redirectToRoute('thanks', ['order'=>$order->getId()]);

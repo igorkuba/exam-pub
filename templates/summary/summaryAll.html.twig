@@ -22,6 +22,12 @@
                 </tr>
             {% endfor %}
             </tbody>
+            <tfooter>
+                <tr>
+                    <td colspan="2"><strong>Souhrn - počet položek: {{ sum['number'] }}</strong></td>
+                    <td><strong>Součet: {{ sum['sum'] }} Kč</strong></td>
+                </tr>
+            </tfooter>
         </table>
         {{ include('paginator/pager.html.twig', {'links': links}) }}    
     </div>

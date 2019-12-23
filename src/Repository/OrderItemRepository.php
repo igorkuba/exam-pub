@@ -29,6 +29,18 @@ class OrderItemRepository extends ServiceEntityRepository
         return $q->getQuery();
     }
     
+    public function sumByProduct($product)
+    {
+        $q= $this->createQueryBuilder('q');
+        $q->andWhere('q.product=:product');
+        $q->setParameter('product', $product);
+        $q->join('q.drinkOrder', 'order');
+        $q->orderBy('order.date','desc');
+        $q->addSelect('sum(q.price) as sum');
+        $q->addSelect('count(q.price) as number');
+        return $q->getQuery()->getResult()[0];
+    }
+    
     public function itemsByCustomer($customer)
     {
         $q= $this->createQueryBuilder('q');
@@ -37,6 +49,18 @@ class OrderItemRepository extends ServiceEntityRepository
         $q->andWhere('ord.customer=:customer');
         $q->setParameter('customer', $customer);
         return $q->getQuery();
+    }
+    
+    public function sumByCustomer($customer)
+    {
+        $q= $this->createQueryBuilder('q');
+        $q->join('q.drinkOrder', 'ord');
+        $q->orderBy('ord.date','desc');
+        $q->andWhere('ord.customer=:customer');
+        $q->setParameter('customer', $customer);
+        $q->addSelect('sum(q.price) as sum');
+        $q->addSelect('count(q.price) as number');
+        return $q->getQuery()->getResult()[0];
     }
     
     public function itemsPerDay()
@@ -49,5 +73,19 @@ class OrderItemRepository extends ServiceEntityRepository
         $q->andWhere('ord.date>=:date');
         $q->setParameter('date', $yesterday);
         return $q->getQuery();
+    }
+    
+    public function sumPerDay()
+    {
+        $yesterday=new \DateTime();
+        $yesterday->modify('- 24 hours');
+        $q= $this->createQueryBuilder('q');
+        $q->join('q.drinkOrder', 'ord');
+        $q->orderBy('ord.date','desc');
+        $q->andWhere('ord.date>=:date');
+        $q->setParameter('date', $yesterday);
+        $q->addSelect('sum(q.price) as sum');
+        $q->addSelect('count(q.price) as number');
+        return $q->getQuery()->getResult()[0];
     }
 }

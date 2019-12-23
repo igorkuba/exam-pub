@@ -26,10 +26,12 @@ class SummaryController extends AbstractController
             $title=$customer->getName();
         $items=$itemRep->itemsByCustomer($customer);
         $pag=$paginator->buildPaginer($items, 10);
+        $sum=$itemRep->sumByCustomer($customer);
         return $this->render('summary/summaryUser.html.twig', [
             'title' => $title,
             'items'=>$pag->entities(),
             'links'=>$pag->links(),
+            'sum'=>$sum,
         ]);
     }
     
@@ -48,10 +50,12 @@ class SummaryController extends AbstractController
             $title=$product->getName();
         $items=$itemRep->itemsByProduct($product);
         $pag=$paginator->buildPaginer($items,10);
+        $sum=$itemRep->sumByProduct($product);
         return $this->render('summary/summaryProduct.html.twig', [
             'title' => $title,
             'items'=>$pag->entities(),
             'links'=>$pag->links(),
+            'sum'=>$sum,
         ]);
     }
     
@@ -62,9 +66,11 @@ class SummaryController extends AbstractController
     {
         $items=$itemRep->itemsPerDay();
         $pag=$paginator->buildPaginer($items,10);
+        $sum=$itemRep->sumPerDay();
         return $this->render('summary/summaryAll.html.twig', [
             'items'=>$pag->entities(),
             'links'=>$pag->links(),
+            'sum'=>$sum,
         ]);
     }
 }
