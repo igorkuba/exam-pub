@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Statistiky všech produktů {% endblock %}
+{% block h1%} Statistiky všech produktů {% endblock %}
+{% block body %}
+    {% if products %}        
+    <div class="container">
+        {% for product in products %}
+        <h2>{{ product.name }}</h2>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Datum a čas prodeje</th>
+                    <th>Cena</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for item in product.items %}
+                <tr>
+                    <td>{{ item.drinkOrder.date|date('j.n.Y G:i') }}</td>
+                    <td>{{ item.price }} Kč</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfooter>
+                <tr>
+                    <td><strong>Souhrn - počet položek: {{ product.sum['number'] }}</strong></td>
+                    <td><strong>Součet: {{ product.sum['sum'] }} Kč</strong></td>
+                </tr>
+            </tfooter>
+        </table>
+        {% endfor %}
+    </div>
+    {% endif %}        
+{% endblock %}
+
